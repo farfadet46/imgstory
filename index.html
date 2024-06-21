@@ -1,23 +1,70 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raconte moi une histoire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #696666; 
+            text-align: center;
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            display: flex; 
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        h1 {
+            color: #ffe;
+        }
+        .image-container {
+            flex: 0 0 33%;
+            margin: 0;
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+        }
+        .image-container p {
+            margin: 10; /* Aucune marge autour du paragraphe */
+        }
+        
+    </style>
 </head>
 <body>
-<h1> raconte moi une histoire</h1>
 
-<center>
+<h1>Raconte moi une histoire</h1>
 
-voici le lieu : 
-<img src="images/lieux/050.jpg">
-</br>
+    <div class="container">
+        
 
-Voici le héro :
-<img src="images/persos/001.jpg">
-</br>
+        <div class="image-container">
+            <p>Voici le lieu :</p>
+            <img src="images/lieux/002.jpg" alt="Lieu">
+        </div>
 
-Voici un objet :
-<img src="images/objets/027.jpg">
-</br>
+        <div class="image-container">
+            <p>Voici le hÃ©ros :</p>
+            <img src="images/persos/001.jpg" alt="Héros">
+        </div>
 
-</center>
+        <div class="image-container">
+            <p>Voici un objet :</p>
+            <img src="images/objets/008.jpg" alt="Objet">
+        </div>
+    </div>
 </body>
 </html>
