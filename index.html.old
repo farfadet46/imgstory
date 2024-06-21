@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raconte moi une histoire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #696666; 
+            text-align: center;
+            padding-top: 50px;
+        }
+        
+        h1 {
+            color: #FF;
+        }
+        
+        .titlecontainer {
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            display: flex; 
+            justify-content: center;
+            flex-wrap: wrap;
+        }        
+        .image-container {
+            flex: 0 0 33%;
+            margin: 0;
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+        }
+        .image-container p {
+            margin: 10; /* Aucune marge autour du paragraphe */
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="titlecontainer">
+        <h1>Raconte moi une histoire</h1>
+        <h3>Inspirez-vous de ces 3 images pour raconter un histoire.</h3>
+        <button onclick="chargerImagesAleatoires()">Générer d'autres images</button>
+    </div>
+    
+    <p>&nbsp</p>
+    
+    <div class="container">
+        <div class="image-container">
+            <p>Voici le lieu :</p>
+            <img src="images/lieux/002.jpg" alt="Lieu">
+        </div>
+
+        <div class="image-container">
+            <p>Voici le héro :</p>
+            <img src="images/persos/001.jpg" alt="H�ros">
+        </div>
+
+        <div class="image-container">
+            <p>Voici un objet :</p>
+            <img src="images/objets/008.jpg" alt="Objet">
+        </div>
+    </div>
+</body>
+</html>

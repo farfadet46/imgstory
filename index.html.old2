@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images aléatoires</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        
+         h1 {
+            color: #FF;
+        }
+        
+        .titlecontainer {
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            display: flex; 
+            justify-content: space-between; /* Espace entre les conteneurs */
+            flex-wrap: wrap;
+        }        
+
+        .image-container {
+            flex: 0 0 calc(33.33% - 20px); /* Calcul de la largeur de chaque conteneur d'image avec un espace de 20px entre eux */
+            margin-bottom: 20px; /* Espacement en bas de chaque conteneur */
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+        }
+        
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="titlecontainer">
+        <h1>Raconte moi une histoire</h1>
+        <h3>Inspirez-vous de ces 3 images pour raconter un histoire.</h3>
+        <button onclick="chargerImagesAleatoires()">Générer d'autres images</button>
+    </div>
+    <div class="container">
+        <div class="image-container" id="lieuContainer">
+            <p>Lieu :</p>
+            <img id="lieuImage" src="" alt="Lieu">
+        </div>
+
+        <div class="image-container" id="persoContainer">
+            <p>Protagoniste :</p>
+            <img id="persoImage" src="" alt="Héros">
+        </div>
+
+        <div class="image-container" id="objetContainer">
+            <p>objet :</p>
+            <img id="objetImage" src="" alt="Objet">
+        </div>
+        
+        <div class="image-container" id="mechantContainer">
+            <p>Antagoniste :</p>
+            <img id="mechantImage" src="" alt="Méchant">
+        </div>
+    </div>
+
+    <script>
+        function chargerImagesAleatoires() {
+            var nombreImagesLieux = 62; // Nombre d'images dans le dossier 'lieux'
+            var nombreImagesPersos = 50; // Nombre d'images dans le dossier 'persos'
+            var nombreImagesObjets = 70; // Nombre d'images dans le dossier 'objets'
+
+            var lieuImages = [];
+            var persoImages = [];
+            var objetImages = [];
+
+            // Génération des chemins d'accès aux images pour chaque dossier
+            for (var i = 1; i <= nombreImagesLieux; i++) {
+                var numStr = pad(i, 3);
+                lieuImages.push('images/lieux/' + numStr + '.jpg');
+            }
+
+            for (var j = 1; j <= nombreImagesPersos; j++) {
+                var numStr = pad(j, 3);
+                persoImages.push('images/persos/' + numStr + '.jpg');
+            }
+
+            for (var k = 1; k <= nombreImagesObjets; k++) {
+                var numStr = pad(k, 3);
+                objetImages.push('images/objets/' + numStr + '.jpg');
+            }
+
+            function choisirImageAleatoire(imagesArray) {
+                var randomIndex = Math.floor(Math.random() * imagesArray.length);
+                return imagesArray[randomIndex];
+            }
+
+            var lieuImage = choisirImageAleatoire(lieuImages);
+            var persoImage = choisirImageAleatoire(persoImages);
+            var objetImage = choisirImageAleatoire(objetImages);
+
+            document.getElementById('lieuImage').src = lieuImage;
+            document.getElementById('persoImage').src = persoImage;
+            document.getElementById('objetImage').src = objetImage;
+        }
+
+        // Fonction pour formater le numéro en '001', '002', ...
+        function pad(num, size) {
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+            return s;
+        }
+
+    </script>
+
+</body>
+</html>

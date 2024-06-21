@@ -3,29 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raconte moi une histoire</title>
+    <title>Images aléatoires</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #696666; 
             text-align: center;
             padding-top: 50px;
-        }
-        
-        h1 {
-            color: #FF;
-        }
-        
-        .titlecontainer {
-            max-width: 800px; 
-            margin: 0 auto; 
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-            display: flex; 
-            justify-content: center;
-            flex-wrap: wrap;
         }
         
         .container {
@@ -36,55 +19,147 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
             display: flex; 
-            justify-content: center;
+            justify-content: space-between; /* Espace entre les conteneurs */
             flex-wrap: wrap;
         }        
+
         .image-container {
-            flex: 0 0 33%;
-            margin: 0;
+            flex: 0 0 calc(33.33% - 20px); /* Calcul de la largeur de chaque conteneur d'image avec un espace de 20px entre eux */
+            margin-bottom: 20px; /* Espacement en bas de chaque conteneur */
             text-align: center;
         }
+        
         .image-container img {
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
             border-radius: 8px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
         }
-        .image-container p {
-            margin: 10; /* Aucune marge autour du paragraphe */
+        
+        form {
+            margin-bottom: 20px;
         }
         
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
 
-    <div class="titlecontainer">
-        <h1>Raconte moi une histoire</h1>
-        <br>
-        <p>
-        Inspirez-vous de ces 3 images pour raconter un histoire.
-        </p>
-    </div>
-    
-    <p>&nbsp</p>
-    
-    <div class="container">
-        <div class="image-container">
-            <p>Voici le lieu :</p>
-            <img src="images/lieux/002.jpg" alt="Lieu">
-        </div>
+    <form id="imageForm">
+        <label for="nombreLieux">Nombre d'images pour les lieux :</label>
+        <input type="number" id="nombreLieux" name="nombreLieux" min="1" value="1" max="2"><br><br>
+        
+        <label for="nombrePersos">Nombre d'images pour les personnages :</label>
+        <input type="number" id="nombrePersos" name="nombrePersos" min="1" value="1" max="3"><br><br>
+        
+        <label for="nombreObjets">Nombre d'images pour les objets :</label>
+        <input type="number" id="nombreObjets" name="nombreObjets" min="1" value="1" max="5"><br><br>
+        
+        <button type="button" onclick="chargerImagesAleatoires()">Charger des images aléatoires</button>
+    </form>
 
-        <div class="image-container">
-            <p>Voici le héros :</p>
-            <img src="images/persos/001.jpg" alt="H�ros">
-        </div>
-
-        <div class="image-container">
-            <p>Voici un objet :</p>
-            <img src="images/objets/008.jpg" alt="Objet">
-        </div>
+    <div class="container" id="imagesContainer">
+        <!-- Les images seront ajoutées ici dynamiquement -->
     </div>
+
+    <script>
+        var nombreImagesLieux = 32; // Nombre d'images dans le dossier 'lieux'
+        var nombreImagesPersos = 50; // Nombre d'images dans le dossier 'persos'
+        var nombreImagesObjets = 70; // Nombre d'images dans le dossier 'objets'
+
+        function chargerImagesAleatoires() {
+            var nombreLieux = parseInt(document.getElementById('nombreLieux').value);
+            var nombrePersos = parseInt(document.getElementById('nombrePersos').value);
+            var nombreObjets = parseInt(document.getElementById('nombreObjets').value);
+
+            var imagesLieux = genererImagesAleatoires('lieux', nombreLieux);
+            var imagesPersos = genererImagesAleatoires('persos', nombrePersos);
+            var imagesObjets = genererImagesAleatoires('objets', nombreObjets);
+
+            var imagesTotales = imagesLieux.concat(imagesPersos, imagesObjets);
+
+            afficherImages(imagesTotales);
+        }
+
+        function genererImagesAleatoires(dossier, nombreImages) {
+            var imagesArray = [];
+            var disponibles = [];
+
+            switch (dossier) {
+                case 'lieux':
+                    disponibles = genererDisponibles(nombreImagesLieux);
+                    break;
+                case 'persos':
+                    disponibles = genererDisponibles(nombreImagesPersos);
+                    break;
+                case 'objets':
+                    disponibles = genererDisponibles(nombreImagesObjets);
+                    break;
+                default:
+                    disponibles = [];
+                    break;
+            }
+
+            for (var i = 0; i < nombreImages; i++) {
+                var randomIndex = Math.floor(Math.random() * disponibles.length);
+                var numStr = pad(disponibles[randomIndex], 3);
+                imagesArray.push('images/' + dossier + '/' + numStr + '.jpg');
+                disponibles.splice(randomIndex, 1);
+            }
+
+            return imagesArray;
+        }
+
+        function genererDisponibles(nombreTotal) {
+            var disponibles = [];
+            for (var i = 1; i <= nombreTotal; i++) {
+                disponibles.push(i);
+            }
+            return disponibles;
+        }
+
+        function afficherImages(imagesArray) {
+            var container = document.getElementById('imagesContainer');
+            container.innerHTML = ''; // Effacer le contenu précédent
+
+            imagesArray.forEach(function(imagePath) {
+                var img = document.createElement('img');
+                img.src = imagePath;
+                img.alt = 'Image';
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+                img.style.borderRadius = '8px';
+                img.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.1)';
+
+                var div = document.createElement('div');
+                div.className = 'image-container';
+                div.appendChild(img);
+
+                container.appendChild(div);
+            });
+        }
+
+        // Fonction pour formater le numéro en '001', '002', ...
+        function pad(num, size) {
+            var s = num + "";
+            while (s.length < size) s = "0" + s;
+            return s;
+        }
+    </script>
+
 </body>
 </html>
