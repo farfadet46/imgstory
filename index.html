@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding-top: 50px;
+            background-color: #696666;
         }
         
         .container {
@@ -58,7 +59,7 @@
     </style>
 </head>
 <body>
-
+    <div class="container">
     <form id="imageForm">
         <label for="nombreLieux">Nombre d'images pour les lieux :</label>
         <input type="number" id="nombreLieux" name="nombreLieux" min="1" value="1" max="2"><br><br>
@@ -71,7 +72,8 @@
         
         <button type="button" onclick="chargerImagesAleatoires()">Charger des images aléatoires</button>
     </form>
-
+    </div>
+    <p>&nbsp</p>
     <div class="container" id="imagesContainer">
         <!-- Les images seront ajoutées ici dynamiquement -->
     </div>
